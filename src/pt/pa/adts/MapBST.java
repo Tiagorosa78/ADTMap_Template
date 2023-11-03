@@ -1,5 +1,6 @@
 package pt.pa.adts;
 
+import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -186,6 +187,9 @@ public class MapBST<K extends Comparable<K>, V> implements Map<K,V> {
         this.root = null;
     }
 
+
+
+
     @Override
     public String toString() {
         if(isEmpty()) return "Empty binary search tree.";
@@ -226,5 +230,35 @@ public class MapBST<K extends Comparable<K>, V> implements Map<K,V> {
             this.left = left;
             this.right = right;
         }
+
+        private BSTNode searchNodeWithKey(K key, BSTNode treeRoot) {
+            if (treeRoot == null) {
+                return null;
+            }
+
+            int comparison = key.compareTo(treeRoot.key);
+
+            if (comparison == 0) {
+                return treeRoot;
+            } else if (comparison < 0) {
+                return searchNodeWithKey(key, treeRoot.left);
+            } else {
+                return searchNodeWithKey(key, treeRoot.right);
+            }
+        }
+
+        private BSTNode getLeftmostNode(BSTNode treeRoot) {
+            if (treeRoot == null) {
+                return null;
+            }
+
+            if (treeRoot.left == null) {
+                return treeRoot;
+            } else {
+                return getLeftmostNode(treeRoot.left);
+            }
+        }
     }
+
+
 }
